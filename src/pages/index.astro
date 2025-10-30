@@ -1,5 +1,5 @@
 ---
-import Main from "../components/Main.astro";
+import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import NavBottom from "../components/NavBottom.astro";
 
@@ -8,6 +8,40 @@ import NavBottom from "../components/NavBottom.astro";
 ---
 
 <Layout>
-  <Main />
-  <NavBottom />
+  <Welcome />
 </Layout>
+<script>
+  // Función que cuenta 5 segundos y redirige a /home
+  function redirectToHome() {
+    let countdown = 5;
+
+    // Crear elemento para mostrar la cuenta regresiva (opcional)
+    const countdownElement = document.createElement("div");
+    countdownElement.style.position = "fixed";
+    countdownElement.style.bottom = "20px";
+    countdownElement.style.left = "50%";
+    countdownElement.style.transform = "translateX(-50%)";
+    countdownElement.style.background = "rgba(0,0,0,0.8)";
+    countdownElement.style.color = "white";
+    countdownElement.style.padding = "10px 20px";
+    countdownElement.style.borderRadius = "25px";
+    countdownElement.style.zIndex = "1000";
+    countdownElement.style.textAlign = "center";
+    countdownElement.style.fontSize = "14px";
+    document.body.appendChild(countdownElement);
+
+    const timer = setInterval(() => {
+      countdownElement.textContent = `Redirigiendo en ${countdown}s`;
+      countdown--;
+
+      if (countdown < 0) {
+        clearInterval(timer);
+        // Redirigir a /home
+        window.location.href = "/home";
+      }
+    }, 1000);
+  }
+
+  // Ejecutar cuando la página se carga
+  document.addEventListener("DOMContentLoaded", redirectToHome);
+</script>
