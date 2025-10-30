@@ -1,0 +1,55 @@
+---
+import { Home, Users, Calendar, BookOpen, Mail } from "lucide-astro";
+---
+
+<nav>
+  <ul
+    class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around py-2 lg:hidden"
+  >
+    <li>
+      <a
+        href="#home"
+        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+      >
+        <Home size={18} />
+        <span class="text-xs">Inicio</span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="#about"
+        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+      >
+        <Users size={18} />
+        <span class="text-xs">Nosotros</span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="#diary"
+        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+      >
+        <Calendar size={18} />
+        <span class="text-xs">Agenda</span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="#culture"
+        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+      >
+        <BookOpen size={18} />
+        <span class="text-xs">Cultura</span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="#contact"
+        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+      >
+        <Mail size={18} />
+        <span class="text-xs">Contacto</span>
+      </a>
+    </li>
+  </ul>
+</nav>
