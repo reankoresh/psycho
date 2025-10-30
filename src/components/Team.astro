@@ -1,0 +1,45 @@
+---
+import Title from "./Title.astro";
+
+export interface Props {
+  reverse?: boolean;
+  title?: string;
+  description?: string;
+}
+
+const {
+  reverse = false,
+  title = "Psicólogo",
+  description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat",
+} = Astro.props;
+---
+
+<section
+  class="container mx-auto bg-white flex justify-center w-11/12 rounded-3xl my-6 shadow-lg md:shadow-none"
+>
+  <div
+    class={`grid grid-cols-2 w-full ${reverse ? "grid-flow-col-dense" : ""}`}
+  >
+    <!-- Cuadro izquierdo/derecho según reverse -->
+    <div
+      class={`bg-cyan-200 p-4 ${reverse ? "rounded-r-3xl order-2" : "rounded-l-3xl order-1"}`}
+    >
+      <!-- Aquí puedes añadir imagen o contenido -->
+      <div
+        class="h-32 bg-cyan-300/50 rounded-lg flex items-center justify-center"
+      >
+        <span class="text-gray-600 text-sm">Foto</span>
+      </div>
+    </div>
+
+    <!-- Cuadro derecho/izquierdo según reverse -->
+    <div
+      class={`bg-white p-4 ${reverse ? "rounded-l-3xl order-1" : "rounded-r-3xl order-2"}`}
+    >
+      <Title tag="h3" title={title} class="text-center mb-4" />
+      <p class="text-sm text-gray-700">
+        {description}
+      </p>
+    </div>
+  </div>
+</section>

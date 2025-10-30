@@ -2,54 +2,171 @@
 import { Home, Users, Calendar, BookOpen, Mail } from "lucide-astro";
 ---
 
-<nav>
+<nav id="bottom-nav">
   <ul
-    class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around py-2 lg:hidden"
+    class="fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-sm border-t border-gray-200 flex justify-around py-3 lg:hidden translate-y-full shadow-lg"
   >
     <li>
       <a
-        href="#home"
-        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+        href="/home"
+        class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600 transition-colors duration-200 tap-highlight-transparent"
       >
-        <Home size={18} />
-        <span class="text-xs">Inicio</span>
+        <Home size={20} strokeWidth={1.5} />
+        <span class="text-xs mt-1 font-medium">Inicio</span>
       </a>
     </li>
     <li>
       <a
-        href="#about"
-        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+        href="/about"
+        class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600 transition-colors duration-200 tap-highlight-transparent"
       >
-        <Users size={18} />
-        <span class="text-xs">Nosotros</span>
+        <Users size={20} strokeWidth={1.5} />
+        <span class="text-xs mt-1 font-medium">Nosotros</span>
       </a>
     </li>
     <li>
       <a
         href="#diary"
-        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+        class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600 transition-colors duration-200 tap-highlight-transparent"
       >
-        <Calendar size={18} />
-        <span class="text-xs">Agenda</span>
+        <Calendar size={20} strokeWidth={1.5} />
+        <span class="text-xs mt-1 font-medium">Agenda</span>
       </a>
     </li>
     <li>
       <a
         href="#culture"
-        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+        class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600 transition-colors duration-200 tap-highlight-transparent"
       >
-        <BookOpen size={18} />
-        <span class="text-xs">Cultura</span>
+        <BookOpen size={20} strokeWidth={1.5} />
+        <span class="text-xs mt-1 font-medium">Cultura</span>
       </a>
     </li>
     <li>
       <a
         href="#contact"
-        class="flex flex-col items-center space-x-1 text-gray-600 hover:text-blue-500"
+        class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600 transition-colors duration-200 tap-highlight-transparent"
       >
-        <Mail size={18} />
-        <span class="text-xs">Contacto</span>
+        <Mail size={20} strokeWidth={1.5} />
+        <span class="text-xs mt-1 font-medium">Contacto</span>
       </a>
     </li>
   </ul>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let lastScrollY = window.scrollY;
+    let hideTimeout: number;
+    let isScrolling = false;
+    const nav = document.getElementById("bottom-nav");
+    const navElement = nav?.querySelector("ul");
+
+    if (!navElement) return;
+
+    function showNav() {
+      navElement.classList.remove("translate-y-full");
+      navElement.classList.add("translate-y-0");
+    }
+
+    function hideNav() {
+      navElement.classList.add("translate-y-full");
+      navElement.classList.remove("translate-y-0");
+    }
+
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+      // Solo actuar si hay un scroll significativo (reduce parpadeo)
+      if (scrollDelta < 5) return;
+
+      clearTimeout(hideTimeout);
+      isScrolling = true;
+
+      if (currentScrollY < lastScrollY && currentScrollY > 100) {
+        // Scroll hacia arriba y no está cerca del top
+        showNav();
+
+        // Auto-ocultar después de 4 segundos de inactividad
+        hideTimeout = setTimeout(() => {
+          if (!isScrolling) {
+            hideNav();
+          }
+        }, 4000);
+      } else if (currentScrollY > lastScrollY && scrollDelta > 20) {
+        // Scroll hacia abajo con movimiento significativo
+        hideNav();
+      }
+
+      lastScrollY = currentScrollY;
+
+      // Marcar que el scroll ha terminado después de 150ms
+      setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    }
+
+    // Mostrar nav al tocar el área inferior de la pantalla
+    function handleTouchStart(e: TouchEvent) {
+      const touch = e.touches[0];
+      const screenHeight = window.innerHeight;
+
+      if (touch.clientY > screenHeight - 100) {
+        showNav();
+        clearTimeout(hideTimeout);
+
+        hideTimeout = setTimeout(() => {
+          hideNav();
+        }, 3000);
+      }
+    }
+
+    // Event listeners optimizados
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Touch en área inferior para mostrar nav
+    document.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+
+    // Ocultar nav al hacer clic fuera de ella
+    document.addEventListener("click", (e) => {
+      if (!nav?.contains(e.target as Node)) {
+        hideNav();
+      }
+    });
+  });
+</script>
+
+<style>
+  nav ul {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Mejoras para dispositivos táctiles */
+  @media (hover: none) and (pointer: coarse) {
+    nav a {
+      min-height: 44px;
+      padding: 8px 4px;
+    }
+  }
+
+  /* Evitar highlight en dispositivos táctiles */
+  nav a {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+</style>
