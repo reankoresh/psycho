@@ -1,13 +1,17 @@
 ---
 import Card from "./Card.astro";
 import Buttons from "./Buttons.astro";
+import { Image } from "astro:assets";
+import insaneImage from "../assets/main/insane1.jpg";
 ---
 
-<main class="h-dvh">
-  <img
-    src="/insane1.jpg"
-    alt=""
-    class="w-full object-cover lg:object-cover h-5/12"
+<main class="h-dvh bg-amber-200">
+  <Image
+    src={insaneImage}
+    alt="Imagen principal"
+    width={800}
+    height={400}
+    class="w-full object-cover lg:object-contain h-5/12"
   />
   <Card />
   <Buttons />

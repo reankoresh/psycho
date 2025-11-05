@@ -3,8 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import Team from "../components/Team.astro";
 import Title from "../components/Title.astro";
 import NavBottom from "../components/NavBottom.astro";
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { Image } from "astro:assets";
+import p1Image from "../assets/team/p1.png";
+import p2Image from "../assets/team/p2.png";
+import p3Image from "../assets/team/p3.png";
+import p4Image from "../assets/team/p4.png";
 ---
 
 <Layout bgColor="bg-gradient-to-t from-purple-300 from-60% to-cyan-200">
@@ -12,36 +15,42 @@ import NavBottom from "../components/NavBottom.astro";
     <Title title="Nuestro Equipo" tag="h1" class="text-center" />
   </div>
 
-  <!-- Diseño normal -->
+  <!-- Con imagen -->
   <Team
-    title="Psicóloga"
-    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat."
+    job="Psicoterapeuta"
+    person="Dr. Emilio Alvarez"
+    description="Especialista en psicología clínica con 10 años de experiencia."
+    image={p1Image}
+    imageAlt="Foto del Dr. Emilio Alvarez"
   />
 
-  <!-- Diseño invertido -->
+  <!-- Con imagen -->
   <Team
     reverse={true}
-    title="Terapeuta"
-    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat."
+    job="Doctora"
+    person="Dra. Emilia Gómez"
+    image={p2Image}
+    imageAlt="Foto de la Dra. Emilia Gómez"
+    description="Experta en terapia familiar y de pareja."
   />
 
-  <!-- Diseño normal -->
+  <!-- Con imagen -->
   <Team
-    title="Trabajadora Social"
-    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat."
+    job="Enfermera"
+    person="Cecilia Martínez"
+    description="Enfermera con especialización en cuidados intensivos."
+    image={p3Image}
+    imageAlt="Foto de Cecilia Martínez"
   />
 
-  <!-- Diseño invertido -->
+  <!-- Con imagen -->
   <Team
     reverse={true}
-    title="Enfermera"
-    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat."
-  />
-
-  <!-- Diseño normal -->
-  <Team
-    title="Neuropsicólogo"
-    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat."
+    job="Enfermera"
+    person="Luisa Fernández"
+    description="Enfermera especializada en salud mental."
+    image={p4Image}
+    imageAlt="Foto de Luisa Fernández"
   />
 
   <NavBottom />

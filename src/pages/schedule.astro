@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Title from "../components/Title.astro";
+import NavBottom from "../components/NavBottom.astro";
+---
+
+<Layout bgColor="">
+  <div class="mx-auto h-32 flex items-center justify-center">
+    <Title title="Agenda" tag="h1" class="text-center" />
+  </div>
+
+  <!-- SVG inline -->
+  <div class="container mx-auto p-4">
+    <div class="w-full max-w-4xl mx-auto rounded-lg shadow-lg bg-white p-6">
+      <svg
+        width="100%"
+        height="400"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 800 400"
+      >
+        <rect
+          width="100%"
+          height="100%"
+          fill="#f8fafc"
+          stroke="#e2e8f0"
+          stroke-width="2"></rect>
+        <text
+          x="400"
+          y="50"
+          text-anchor="middle"
+          fill="#334155"
+          font-size="24"
+          font-weight="bold"
+        >
+          Horarios de Atención
+        </text>
+        <text
+          x="400"
+          y="120"
+          text-anchor="middle"
+          fill="#64748b"
+          font-size="18"
+        >
+          Lunes a Viernes: 9:00 AM - 6:00 PM
+        </text>
+        <text
+          x="400"
+          y="160"
+          text-anchor="middle"
+          fill="#64748b"
+          font-size="18"
+        >
+          Sábados: 9:00 AM - 2:00 PM
+        </text>
+        <text
+          x="400"
+          y="220"
+          text-anchor="middle"
+          fill="#334155"
+          font-size="16"
+        >
+          Para agendar una cita, contacte:
+        </text>
+        <text
+          x="400"
+          y="260"
+          text-anchor="middle"
+          fill="#2563eb"
+          font-size="16"
+        >
+          📞 (555) 123-4567
+        </text>
+        <text
+          x="400"
+          y="300"
+          text-anchor="middle"
+          fill="#2563eb"
+          font-size="16"
+        >
+          📧 citas@psycho.com
+        </text>
+      </svg>
+    </div>
+  </div>
+
+  <NavBottom />
+</Layout>
