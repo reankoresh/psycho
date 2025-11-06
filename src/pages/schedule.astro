@@ -10,22 +10,22 @@ import Image from "../components/Image.astro";
     <Title title="Agenda" tag="h1" class="text-center" />
   </div>
 
-  <Image
-    src="/src/assets/schedule/schedule.svg"
-    alt="Schedule"
-    width={400}
-    height={300}
-    class="schedule-image"
-  />
+  <div class="container mx-auto my-8 px-4 flex justify-center">
+    <Image
+      src="/src/assets/schedule/schedule.svg"
+      alt="Schedule"
+      width={400}
+      height={300}
+      class="schedule-image"
+    />
+  </div>
 
   <!-- Calendario de Google -->
-  <div class="calendar-container mx-auto my-8 px-4">
+  <div class="calendar-container mx-auto my-8 px-4 flex justify-center">
     <iframe
-      src="https://calendar.google.com/calendar/embed?src=psychord47%40gmail.com&ctz=America%2FMonterrey"
+      src="https://calendar.google.com/calendar/embed?src=psychord47%40gmail.com&ctz=America%2FMonterrey&bgcolor=%23ffffff&color=%23039BE5&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&height=700&wkst=1"
       style="border: 0"
-      frameborder="0"
-      scrolling="no"
-      class="w11/12 max-w-3xl h-80 mx-auto rounded-lg shadow-lg"
+      class="w-full max-w-11/12 rounded-lg shadow-lg h-80"
     >
     </iframe>
   </div>
