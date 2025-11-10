@@ -5,15 +5,15 @@ import { Image } from "astro:assets";
 import insaneImage from "../assets/main/insane1.jpg";
 ---
 
-<main class="h-dvh bg-amber-200">
+<main class="">
   <Image
     src={insaneImage}
     alt="Imagen principal"
-    width={800}
-    height={400}
-    class="w-full object-cover lg:object-contain h-5/12"
+    class="w-full object-cover object-top lg:h-180"
   />
-  <Card />
+  <Card class="h-80 bg-blue-300" />
+  <!-- ✅ Ahora funciona -->
   <Buttons />
-  <Card />
+  <Card class="h-80 bg-blue-300" />
+  <!-- ✅ Ahora funciona -->
 </main>
