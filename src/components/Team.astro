@@ -10,6 +10,7 @@ export interface Props {
   description?: string;
   image?: string | ImageMetadata;
   imageAlt?: string;
+  class?: string; // ← Nueva prop
 }
 
 const {
@@ -19,29 +20,12 @@ const {
   description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat",
   image,
   imageAlt = job,
+  class: className = "", // ← Nueva prop
 } = Astro.props;
-
-// Función para importar imágenes dinámicamente
-const getImageSrc = async (imagePath: string) => {
-  if (!imagePath) return null;
-  try {
-    const images = import.meta.glob("../assets/team/*.{png,jpg,jpeg,webp}");
-    const imageName = imagePath.split("/").pop();
-    const fullPath = `../assets/team/${imageName}`;
-
-    if (images[fullPath]) {
-      const imageModule = await images[fullPath]();
-      return imageModule.default;
-    }
-  } catch (error) {
-    console.error("Error loading image:", error);
-  }
-  return null;
-};
 ---
 
 <section
-  class="container mx-auto bg-white flex justify-center w-11/12 rounded-3xl my-6 shadow-lg md:shadow-none"
+  class={`container mx-auto bg-white flex justify-center w-11/12 rounded-3xl my-6 shadow-lg md:shadow-none lg:hidden ${className}`}
 >
   <div
     class={`grid grid-cols-2 w-full ${reverse ? "grid-flow-col-dense" : ""}`}
@@ -61,7 +45,7 @@ const getImageSrc = async (imagePath: string) => {
             class={`w-full h-40 object-contain rounded-lg transition-transform duration-300 ${reverse ? "scale-x-[-1]" : ""}`}
           />
         ) : (
-          <div class="h-32 bg-cyan-300/50 rounded-lg flex items-center justify-center">
+          <div class="h-32 rounded-lg flex items-center justify-center">
             <span class="text-gray-600 text-sm">Foto</span>
           </div>
         )

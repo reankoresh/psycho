@@ -3,55 +3,77 @@ import Layout from "../layouts/Layout.astro";
 import Team from "../components/Team.astro";
 import Title from "../components/Title.astro";
 import NavBottom from "../components/NavBottom.astro";
-import { Image } from "astro:assets";
 import p1Image from "../assets/team/p1.png";
 import p2Image from "../assets/team/p2.png";
 import p3Image from "../assets/team/p3.png";
 import p4Image from "../assets/team/p4.png";
+import Footer from "../components/Footer.astro";
 ---
 
-<Layout bgColor="bg-gradient-to-t from-purple-300 from-60% to-cyan-200">
-  <div class="mx-auto h-32 flex items-center justify-center">
-    <Title title="Nuestro Equipo" tag="h1" class="text-center" />
+<Layout bgColor="">
+  <div class="responsive-background pb-1">
+    <div class="mx-auto h-32 flex items-center justify-center">
+      <Title
+        title="Nuestro Equipo"
+        tag="h1"
+        class="text-center xl:text-white"
+      />
+    </div>
+
+    <!-- Con imagen -->
+    <Team
+      job="Psicoterapeuta"
+      person="Dr. Emilio Alvarez"
+      description="Especialista en psicología clínica con 10 años de experiencia."
+      image={p1Image}
+      imageAlt="Foto del Dr. Emilio Alvarez"
+    />
+
+    <!-- Con imagen -->
+    <Team
+      reverse={true}
+      job="Doctora"
+      person="Dra. Emilia Gómez"
+      image={p2Image}
+      imageAlt="Foto de la Dra. Emilia Gómez"
+      description="Experta en terapia familiar y de pareja."
+    />
+
+    <!-- Con imagen -->
+    <Team
+      job="Enfermera"
+      person="Cecilia Martínez"
+      description="Enfermera con especialización en cuidados intensivos."
+      image={p3Image}
+      imageAlt="Foto de Cecilia Martínez"
+    />
+
+    <!-- Con imagen -->
+    <Team
+      reverse={true}
+      job="Enfermera"
+      person="Luisa Fernández"
+      description="Enfermera especializada en salud mental."
+      image={p4Image}
+      imageAlt="Foto de Luisa Fernández"
+    />
   </div>
-
-  <!-- Con imagen -->
-  <Team
-    job="Psicoterapeuta"
-    person="Dr. Emilio Alvarez"
-    description="Especialista en psicología clínica con 10 años de experiencia."
-    image={p1Image}
-    imageAlt="Foto del Dr. Emilio Alvarez"
-  />
-
-  <!-- Con imagen -->
-  <Team
-    reverse={true}
-    job="Doctora"
-    person="Dra. Emilia Gómez"
-    image={p2Image}
-    imageAlt="Foto de la Dra. Emilia Gómez"
-    description="Experta en terapia familiar y de pareja."
-  />
-
-  <!-- Con imagen -->
-  <Team
-    job="Enfermera"
-    person="Cecilia Martínez"
-    description="Enfermera con especialización en cuidados intensivos."
-    image={p3Image}
-    imageAlt="Foto de Cecilia Martínez"
-  />
-
-  <!-- Con imagen -->
-  <Team
-    reverse={true}
-    job="Enfermera"
-    person="Luisa Fernández"
-    description="Enfermera especializada en salud mental."
-    image={p4Image}
-    imageAlt="Foto de Luisa Fernández"
-  />
-
+  <div class="container mx-auto"></div>
+  <Footer />
   <NavBottom />
 </Layout>
+
+<style>
+  .responsive-background {
+    min-height: 100vh;
+    background: linear-gradient(to top, #d8b4fe 60%, #a5f3fc);
+  }
+
+  @media (min-width: 1280px) {
+    .responsive-background {
+      min-height: 600px;
+      background: url("/main.jpg") center/cover no-repeat;
+      background-attachment: fixed;
+    }
+  }
+</style>
