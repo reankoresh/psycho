@@ -1,22 +1,12 @@
-<div class="container flex justify-center w-11/12 mx-auto">
-  <div class="box flex w-full">
-    <button
-      type="button"
-      class="mx-1 rounded-lg w-8/12 text-base font-medium text-black bg-white hover:bg-gray-100 py-2"
-    >
-      Misión
-    </button>
-    <button
-      type="button"
-      class="mx-1 rounded-lg w-8/12 text-base font-medium text-black bg-white hover:bg-gray-100 py-2"
-    >
-      Visión
-    </button>
-    <button
-      type="button"
-      class="mx-1 rounded-lg w-8/12 text-base font-medium text-black bg-white hover:bg-gray-100 py-2"
-    >
-      Objetivos
-    </button>
+---
+// filepath: c:\Users\Raúl\Desktop\psycho\src\components\Buttons.astro
+import Button from "./Button.astro";
+---
+
+<div class="container flex justify-center items-center mx-auto min-h-[100px]">
+  <div class="box flex items-center justify-center gap-5 px-6 py-4 rounded-lg">
+    <Button href="#mision" text="Misión" />
+    <Button href="#vision" text="Visión" />
+    <Button href="#objetivos" text="Objetivos" />
   </div>
 </div>

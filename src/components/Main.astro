@@ -1,19 +1,25 @@
 ---
 import Card from "./Card.astro";
 import Buttons from "./Buttons.astro";
-import { Image } from "astro:assets";
-import insaneImage from "../assets/main/insane1.jpg";
+import Title from "./Title.astro";
+import bgImage from "../assets/main/background.jpg";
 ---
 
 <main class="">
-  <Image
-    src={insaneImage}
-    alt="Imagen principal"
-    class="w-full object-cover object-top lg:h-180"
-  />
+  <div
+    class="container-fluid mx-auto h-screen flex items-center justify-center bg-blue-200 px-4"
+  >
+    <div class="inner-container relative z-10 max-w-full">
+      <!-- Título con imagen dentro del texto -->
+      <Title
+        title="El dolor es opcional"
+        tag="h1"
+        class="font-black text-center bg-clip-text text-transparent uppercase leading-[1] text-5xl xl:text-[15em] break-words"
+        style={`background-image: url('${bgImage.src}'); background-size: cover; background-position: center;`}
+      />
+    </div>
+  </div>
   <Card class="h-60 bg-blue-300" />
-  <!-- ✅ Ahora funciona -->
   <Buttons />
   <Card class="h-60 bg-blue-300" />
-  <!-- ✅ Ahora funciona -->
 </main>

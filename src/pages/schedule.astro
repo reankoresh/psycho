@@ -7,7 +7,8 @@ import Image from "../components/Image.astro";
 
 <Layout bgColor="bg-gradient-to-t from-purple-300 from-60% to-cyan-200">
   <div class="mx-auto h-32 flex items-center justify-center">
-    <Title title="Agenda" tag="h1" class="text-center" />
+    <!-- h1 → h2 -->
+    <Title title="Agenda" tag="h2" class="text-center" />
   </div>
 
   <div class="container mx-auto my-4 px-4 flex justify-center">
@@ -20,50 +21,23 @@ import Image from "../components/Image.astro";
   <div
     class="container mx-auto my-4 px-4 flex flex-col justify-center items-center"
   >
+    <!-- h3 → h4 -->
     <Title
       title="Inscribete desde aquí"
-      tag="h3"
+      tag="h4"
       class="text-center font-bold"
     />
     <a
       href="/contact"
       class="cursor-pointer w-16 h-16 text-xs rounded-full bg-neutral-400 flex items-center justify-center"
-      >Inscribete</a
     >
+      Inscribete
+    </a>
   </div>
 
-  <div class="mx-auto h-32 flex items-center justify-center w-full">
-    <!-- 5 botones con bordes 3xl separados -->
-    <div class="flex gap-3 flex-wrap justify-center">
-      <button
-        class="px-2 py-1 text-xs bg-neutral-700 text-white rounded-3xl border-2 border-neutral-800 hover:bg-neutral-800 transition-colors"
-      >
-        Charlas
-      </button>
-      <button
-        class="px-2 py-1 text-xs bg-neutral-700 text-white rounded-3xl border-2 border-neutral-800 hover:bg-neutral-800 transition-colors"
-      >
-        Talleres
-      </button>
-      <button
-        class="px-2 py-1 text-xs bg-neutral-700 text-white rounded-3xl border-2 border-neutral-800 hover:bg-neutral-800 transition-colors"
-      >
-        Club
-      </button>
-      <button
-        class="px-2 py-1 text-xs bg-neutral-700 text-white rounded-3xl border-2 border-neutral-800 hover:bg-neutral-800 transition-colors"
-      >
-        Agenda
-      </button>
-      <button
-        class="px-2 py-1 text-xs bg-neutral-700 text-white rounded-3xl border-2 border-neutral-800 hover:bg-neutral-800 transition-colors"
-      >
-        Acción
-      </button>
-    </div>
-  </div>
   <div class="mx-auto mb-10 flex items-center justify-center">
-    <Title title="Disponibilidad" tag="h3" class="text-center font-bold" />
+    <!-- h3 → h4 -->
+    <Title title="Disponibilidad" tag="h4" class="text-center font-bold" />
   </div>
 
   <!-- Calendario de Google -->
@@ -71,9 +45,7 @@ import Image from "../components/Image.astro";
     <iframe
       src="https://calendar.google.com/calendar/embed?src=psychord47%40gmail.com&ctz=America%2FMonterrey&bgcolor=%23ffffff&color=%23039BE5&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&height=700&wkst=1"
       style="border: 0"
-      class="w-full max-w-11/12 rounded-3xl shadow-lg h-80 opacity-70"
-    >
-    </iframe>
+      class="w-full max-w-11/12 rounded-3xl shadow-lg h-80 opacity-70"></iframe>
   </div>
 
   <NavBottom />

@@ -10,7 +10,7 @@ export interface Props {
   description?: string;
   image?: string | ImageMetadata;
   imageAlt?: string;
-  class?: string; // ← Nueva prop
+  class?: string;
 }
 
 const {
@@ -20,7 +20,7 @@ const {
   description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat",
   image,
   imageAlt = job,
-  class: className = "", // ← Nueva prop
+  class: className = "",
 } = Astro.props;
 ---
 
@@ -45,7 +45,7 @@ const {
             class={`w-full h-40 object-contain rounded-lg transition-transform duration-300 ${reverse ? "scale-x-[-1]" : ""}`}
           />
         ) : (
-          <div class="h-32 rounded-lg flex items-center justify-center">
+          <div class="h-32 bg-cyan-300/50 rounded-lg flex items-center justify-center">
             <span class="text-gray-600 text-sm">Foto</span>
           </div>
         )
@@ -56,6 +56,7 @@ const {
     <div
       class={`bg-white p-4 ${reverse ? "rounded-l-3xl order-1" : "rounded-r-3xl order-2"}`}
     >
+      <!-- h6 → (mantener h6 ya que es el último) -->
       <Title tag="h6" title={job} class="text-center font-bold" />
       <Title tag="h6" title={person} class="text-center mb-4" />
       <p class="text-sm text-gray-700">

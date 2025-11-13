@@ -10,14 +10,13 @@ import p4Image from "../assets/team/p4.png";
 import Footer from "../components/Footer.astro";
 ---
 
-<Layout bgColor="">
+<Layout
+  bgColor="bg-gradient-to-t from-purple-300 from-60% to-cyan-200 xl:bg-white"
+>
   <div class="responsive-background pb-1">
     <div class="mx-auto h-32 flex items-center justify-center">
-      <Title
-        title="Nuestro Equipo"
-        tag="h1"
-        class="text-center xl:text-white"
-      />
+      <!-- h1 → h2 -->
+      <Title title="Nuestro Equipo" tag="h2" class="text-center" />
     </div>
 
     <!-- Con imagen -->
@@ -58,7 +57,6 @@ import Footer from "../components/Footer.astro";
       imageAlt="Foto de Luisa Fernández"
     />
   </div>
-  <div class="container mx-auto"></div>
   <Footer />
   <NavBottom />
 </Layout>

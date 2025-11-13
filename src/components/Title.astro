@@ -3,22 +3,24 @@ export interface Props {
   title?: string;
   tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   class?: string;
+  style?: string; // ← Nueva prop
 }
 
 const {
   title = "Título por defecto",
   tag = "h1",
   class: className = "",
+  style = "", // ← Nueva prop
 } = Astro.props;
 
-// Definir clases automáticas según el tag
+// Definir clases automáticas según el tag (valores recorridos)
 const tagClasses = {
-  h1: "text-4xl font-bold",
-  h2: "text-3xl font-semibold",
-  h3: "text-2xl",
-  h4: "text-xl",
-  h5: "text-lg",
-  h6: "text-base",
+  h1: "", // Vacío para asignar nuevo valor
+  h2: "text-4xl font-bold", // Era h1
+  h3: "text-3xl font-semibold", // Era h2
+  h4: "text-2xl", // Era h3
+  h5: "text-xl", // Era h4
+  h6: "text-lg", // Era h5
 };
 
 // Combinar clases automáticas con clases personalizadas
@@ -27,4 +29,4 @@ const finalClasses = `${tagClasses[tag]} ${className}`.trim();
 const Tag = tag;
 ---
 
-<Tag class={finalClasses}>{title}</Tag>
+<Tag class={finalClasses} style={style}>{title}</Tag>
