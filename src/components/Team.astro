@@ -30,11 +30,9 @@ const {
   <div
     class={`grid grid-cols-2 w-full ${reverse ? "grid-flow-col-dense" : ""}`}
   >
-    <!-- Cuadro izquierdo/derecho según reverse -->
     <div
       class={`bg-cyan-200 p-2 ${reverse ? "rounded-r-3xl order-2" : "rounded-l-3xl order-1"}`}
     >
-      <!-- Imagen dinámica o placeholder -->
       {
         image ? (
           <Image
@@ -52,11 +50,9 @@ const {
       }
     </div>
 
-    <!-- Cuadro derecho/izquierdo según reverse -->
     <div
       class={`bg-white p-4 ${reverse ? "rounded-l-3xl order-1" : "rounded-r-3xl order-2"}`}
     >
-      <!-- h6 → (mantener h6 ya que es el último) -->
       <Title tag="h6" title={job} class="text-center font-bold" />
       <Title tag="h6" title={person} class="text-center mb-4" />
       <p class="text-sm text-gray-700">

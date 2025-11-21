@@ -3,23 +3,30 @@ import Card from "./Card.astro";
 import Buttons from "./Buttons.astro";
 import Title from "./Title.astro";
 import bgImage from "../assets/main/background.jpg";
+import Description from "./home/Description.astro";
+import Mision from "./home/Mision.astro";
+import Vision from "./home/Vision.astro";
+import Goals from "./home/Goals.astro";
 ---
 
 <main class="">
   <div
-    class="container-fluid mx-auto h-screen flex items-center justify-center bg-blue-200 px-4"
+    class="container-fluid mx-auto h-screen flex items-center justify-center bg-zinc-200 px-4"
   >
-    <div class="inner-container relative z-10 max-w-full">
-      <!-- Título con imagen dentro del texto -->
+    <div class="inner-container relative z-10 max-w-11/12">
       <Title
-        title="El dolor es opcional"
+        title="Tu lugar para sanar y crecer."
         tag="h1"
-        class="font-black text-center bg-clip-text text-transparent uppercase leading-[1] text-5xl xl:text-[15em] break-words"
+        class="font-black text-center bg-clip-text text-transparent uppercase leading-tight text-4xl md:text-[11em] break-words"
         style={`background-image: url('${bgImage.src}'); background-size: cover; background-position: center;`}
       />
     </div>
   </div>
-  <Card class="h-60 bg-blue-300" />
+  <!-- <Card class="h-60 bg-blue-300" />
   <Buttons />
-  <Card class="h-60 bg-blue-300" />
+  <Card class="h-60 bg-blue-300" /> -->
+  <Description />
+  <Mision />
+  <Vision />
+  <Goals />
 </main>
