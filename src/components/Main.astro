@@ -1,32 +1,137 @@
 ---
-import Card from "./Card.astro";
-import Buttons from "./Buttons.astro";
-import Title from "./Title.astro";
+// filepath: c:\Users\Raúl\Desktop\psycho\src\components\Main.astro
 import bgImage from "../assets/main/background.jpg";
 import Description from "./home/Description.astro";
 import Mision from "./home/Mision.astro";
 import Vision from "./home/Vision.astro";
 import Goals from "./home/Goals.astro";
+import Hero from "./Hero.astro";
+import TabSystem from "./TabSystem.astro";
+
+// Configuración de las tabs
+const mainTabs = [
+  {
+    id: "mision",
+    label: "Misión",
+  },
+  {
+    id: "vision",
+    label: "Visión",
+  },
+  {
+    id: "goals",
+    label: "Objetivos",
+    buttonClass: "bg-purple-500 hover:bg-purple-600",
+  },
+];
 ---
 
 <main class="">
   <div
-    class="container-fluid mx-auto h-screen flex items-center justify-center bg-zinc-200 px-4"
+    class="container-fluid mx-auto h-screen flex items-center justify-center bg-fix ed bg-center px-4"
+    style={`background-image: url('${bgImage.src}');`}
   >
-    <div class="inner-container relative z-10 max-w-11/12">
-      <Title
-        title="Tu lugar para sanar y crecer."
-        tag="h1"
-        class="font-black text-center bg-clip-text text-transparent uppercase leading-tight text-4xl md:text-[11em] break-words"
-        style={`background-image: url('${bgImage.src}'); background-size: cover; background-position: center;`}
-      />
-    </div>
+    <Hero title="Tu lugar para sanar y crecer." tag="h1" class="text-white" />
   </div>
-  <!-- <Card class="h-60 bg-blue-300" />
-  <Buttons />
-  <Card class="h-60 bg-blue-300" /> -->
-  <Description />
-  <Mision />
-  <Vision />
-  <Goals />
+
+  <TabSystem tabs={mainTabs} defaultTab="mision" id="auto-tab-system">
+    <!-- Contenido que va entre los botones y las secciones -->
+    <Description slot="between" />
+
+    <!-- Contenido de cada tab -->
+    <Mision slot="mision" />
+    <Vision slot="vision" />
+    <Goals slot="goals" />
+  </TabSystem>
 </main>
+
+<script define:vars={{ mainTabs }}>
+  // Auto-rotación de tabs cada 6 segundos
+  let currentTabIndex = 0;
+  let autoRotationInterval;
+  let isPaused = false;
+
+  function autoRotateTabs() {
+    if (isPaused) return;
+
+    // Encontrar el siguiente tab
+    currentTabIndex = (currentTabIndex + 1) % mainTabs.length;
+    const nextTab = mainTabs[currentTabIndex];
+
+    // Activar el radio button correspondiente
+    const radioButton = document.querySelector(`input[id*="${nextTab.id}"]`);
+    if (radioButton) {
+      radioButton.checked = true;
+
+      // Disparar evento change para activar las transiciones
+      radioButton.dispatchEvent(new Event("change"));
+    }
+  }
+
+  function startAutoRotation() {
+    autoRotationInterval = setInterval(autoRotateTabs, 6000);
+  }
+
+  function stopAutoRotation() {
+    if (autoRotationInterval) {
+      clearInterval(autoRotationInterval);
+      autoRotationInterval = null;
+    }
+  }
+
+  function pauseAutoRotation() {
+    isPaused = true;
+  }
+
+  function resumeAutoRotation() {
+    isPaused = false;
+  }
+
+  // Iniciar cuando la página carga
+  document.addEventListener("DOMContentLoaded", () => {
+    // Esperar un poco para que el TabSystem se inicialice
+    setTimeout(() => {
+      startAutoRotation();
+    }, 1000);
+
+    // Pausar auto-rotación cuando el usuario interactúa
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContainer = document.querySelector(".tab-system");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Pausar auto-rotación cuando el usuario hace click
+        pauseAutoRotation();
+
+        // Encontrar el índice del tab clickeado
+        const tabId = button.getAttribute("for").split("-").pop();
+        currentTabIndex = mainTabs.findIndex((tab) => tab.id === tabId);
+
+        // Reanudar después de 10 segundos
+        setTimeout(() => {
+          resumeAutoRotation();
+        }, 10000);
+      });
+    });
+
+    // Pausar cuando el mouse está sobre el contenedor
+    if (tabContainer) {
+      tabContainer.addEventListener("mouseenter", pauseAutoRotation);
+      tabContainer.addEventListener("mouseleave", resumeAutoRotation);
+    }
+
+    // Detener cuando la página no es visible
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopAutoRotation();
+      } else {
+        startAutoRotation();
+      }
+    });
+  });
+
+  // Limpiar interval cuando la página se descarga
+  window.addEventListener("beforeunload", () => {
+    stopAutoRotation();
+  });
+</script>

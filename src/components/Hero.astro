@@ -1,0 +1,24 @@
+---
+// filepath: c:\Users\Raúl\Desktop\psycho\src\components\Hero.astro
+import Title from "./Title.astro";
+
+export interface Props {
+  title?: string;
+  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  class?: string;
+}
+
+const {
+  title = "Tu lugar para sanar y crecer.",
+  tag = "h1",
+  class: className = "",
+} = Astro.props;
+---
+
+<div class={`inner-container relative z-10 max-w-11/12 ${className}`}>
+  <Title
+    title={title}
+    tag={tag}
+    class="font-black text-center uppercase leading-tight text-4xl md:text-[11em] break-words"
+  />
+</div>

@@ -1,0 +1,166 @@
+---
+// filepath: c:\Users\Raúl\Desktop\psycho\src\components\TabSystem.astro
+export interface Props {
+  tabs: Array<{
+    id: string;
+    label: string;
+    buttonClass?: string;
+  }>;
+  defaultTab?: string;
+  containerClass?: string;
+  buttonsClass?: string;
+}
+
+const {
+  tabs,
+  defaultTab = tabs[0]?.id,
+  containerClass = "",
+  buttonsClass = "flex flex-wrap items-center justify-center gap-4 md:gap-10 pt-14",
+} = Astro.props;
+
+const uniqueId = Math.random().toString(36).substr(2, 9);
+---
+
+<div class={`tab-system ${containerClass}`}>
+  <!-- Hidden radio buttons -->
+  {
+    tabs.map((tab) => (
+      <input
+        type="radio"
+        id={`tab-${uniqueId}-${tab.id}`}
+        name={`tabs-${uniqueId}`}
+        class="hidden"
+        checked={tab.id === defaultTab}
+      />
+    ))
+  }
+
+  <div class="tab-container">
+    <!-- Botones de navegación -->
+    <div class={buttonsClass}>
+      {
+        tabs.map((tab) => (
+          <label
+            for={`tab-${uniqueId}-${tab.id}`}
+            class={`tab-button w-40 py-3 transition-all duration-300 text-sm text-white rounded-full bg-indigo-500 flex items-center justify-center gap-1 hover:bg-indigo-600 cursor-pointer ${tab.buttonClass || ""}`}
+          >
+            {tab.label}
+          </label>
+        ))
+      }
+    </div>
+
+    <!-- Slot para contenido adicional -->
+    <slot name="between" />
+
+    <!-- Contenido de las secciones con slots específicos -->
+    <div class="content-container">
+      <div data-section="mision" class="content-section">
+        <slot name="mision" />
+      </div>
+
+      <div data-section="vision" class="content-section">
+        <slot name="vision" />
+      </div>
+
+      <div data-section="goals" class="content-section">
+        <slot name="goals" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Mostrar sección mision cuando su radio está checked */
+  .tab-system
+    input[id*="mision"]:checked
+    ~ .tab-container
+    .content-container
+    [data-section="mision"] {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mostrar sección vision cuando su radio está checked */
+  .tab-system
+    input[id*="vision"]:checked
+    ~ .tab-container
+    .content-container
+    [data-section="vision"] {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mostrar sección goals cuando su radio está checked */
+  .tab-system
+    input[id*="goals"]:checked
+    ~ .tab-container
+    .content-container
+    [data-section="goals"] {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Cambiar color del botón activo */
+  .tab-system input:checked ~ .tab-container label {
+    background-color: #6366f1; /* Reset to indigo */
+  }
+
+  .tab-system input[id*="mision"]:checked ~ .tab-container label[for*="mision"],
+  .tab-system input[id*="vision"]:checked ~ .tab-container label[for*="vision"],
+  .tab-system input[id*="goals"]:checked ~ .tab-container label[for*="goals"] {
+    background-color: #10b981;
+    box-shadow: 0 0 0 2px #d1fae5;
+  }
+</style>
+
+<script define:vars={{ tabs }}>
+  // JavaScript para manejar la funcionalidad de tabs
+  document.addEventListener("DOMContentLoaded", function () {
+    tabs.forEach((tab) => {
+      const radioInput = document.getElementById(`tab-${tab.id}`);
+      const contentSection = document.querySelector(
+        `[data-section="${tab.id}"]`
+      );
+      const label = document.querySelector(`label[for="tab-${tab.id}"]`);
+
+      if (radioInput && contentSection && label) {
+        radioInput.addEventListener("change", function () {
+          if (this.checked) {
+            // Ocultar todas las secciones
+            document.querySelectorAll(".content-section").forEach((section) => {
+              section.style.display = "none";
+              section.style.opacity = "0";
+              section.style.transform = "translateY(1rem)";
+            });
+
+            // Mostrar sección activa
+            contentSection.style.display = "block";
+            contentSection.style.opacity = "1";
+            contentSection.style.transform = "translateY(0)";
+
+            // Resetear estilos de botones
+            document.querySelectorAll(".tab-button").forEach((btn) => {
+              btn.style.backgroundColor = "#6366f1"; // indigo-500
+              btn.style.boxShadow = "none";
+            });
+
+            // Aplicar estilos al botón activo
+            label.style.backgroundColor = "#10b981"; // green-500
+            label.style.boxShadow = "0 0 0 2px #d1fae5"; // green-200 ring
+          }
+        });
+      }
+    });
+  });
+</script>
