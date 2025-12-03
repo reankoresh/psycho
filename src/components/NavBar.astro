@@ -7,7 +7,7 @@ import icon3 from "../assets/social/x.svg";
 
 <nav
   id="top-nav"
-  class="fixed top-0 left-1/2 transform -translate-x-1/2 w-10/12 bg-transparent z-50 hidden lg:block"
+  class="fixed top-0 left-1/2 transform -translate-x-1/2 w-10/12 bg-transparent z-50 hidden lg:block transition-all duration-300 ease-in-out"
 >
   <div class="flex items-center justify-between px-6 py-3">
     <!-- Logo del lado izquierdo -->
@@ -17,37 +17,53 @@ import icon3 from "../assets/social/x.svg";
         class="flex items-center space-x-2 hover:opacity-80 transition-opacity"
       >
         <img src="/logo.svg" alt="Logo Psycho" class="h-8 w-8" />
-        <span class="text-xl font-bold text-white">Psycho</span>
+        <span
+          class="nav-text text-xl font-bold text-white transition-colors duration-300"
+          >Psycho</span
+        >
       </a>
     </div>
 
     <!-- Navegación del lado derecho con estilos compartidos -->
-    <ul
-      class="flex items-center space-x-8 text-white [&>li>a]:hover:text-blue-500 [&>li>a]:active:text-blue-600 [&>li>a]:transition-colors [&>li>a]:duration-200"
-    >
+    <ul class="flex items-center space-x-8 nav-links">
       <li>
         <a href="/home">
-          <span class="text-sm font-medium">Inicio</span>
+          <span
+            class="nav-text text-sm font-medium text-white transition-colors duration-300"
+            >Inicio</span
+          >
         </a>
       </li>
       <li>
         <a href="/about">
-          <span class="text-sm font-medium">Nosotros</span>
+          <span
+            class="nav-text text-sm font-medium text-white transition-colors duration-300"
+            >Nosotros</span
+          >
         </a>
       </li>
       <li>
         <a href="/schedule">
-          <span class="text-sm font-medium">Agenda</span>
+          <span
+            class="nav-text text-sm font-medium text-white transition-colors duration-300"
+            >Agenda</span
+          >
         </a>
       </li>
       <li>
         <a href="#culture">
-          <span class="text-sm font-medium">Cultura</span>
+          <span
+            class="nav-text text-sm font-medium text-white transition-colors duration-300"
+            >Cultura</span
+          >
         </a>
       </li>
       <li>
         <a href="/contact">
-          <span class="text-sm font-medium">Contacto</span>
+          <span
+            class="nav-text text-sm font-medium text-white transition-colors duration-300"
+            >Contacto</span
+          >
         </a>
       </li>
     </ul>
@@ -57,29 +73,109 @@ import icon3 from "../assets/social/x.svg";
       <!-- Primer icono -->
       <Image
         src={icon1}
-        alt="Icono 1"
+        alt="Instagram"
         width={20}
         height={20}
-        class="filter brightness-0 invert hover:brightness-100 hover:invert-0 hover:hue-rotate-180 cursor-pointer transition-all duration-200"
+        class="nav-icon filter brightness-0 invert hover:brightness-100 hover:invert-0 hover:hue-rotate-180 cursor-pointer transition-all duration-200"
       />
 
       <!-- Segundo icono -->
       <Image
         src={icon2}
-        alt="Icono 2"
+        alt="TikTok"
         width={20}
         height={20}
-        class="filter brightness-0 invert hover:brightness-100 hover:invert-0 hover:hue-rotate-180 cursor-pointer transition-all duration-200"
+        class="nav-icon filter brightness-0 invert hover:brightness-100 hover:invert-0 hover:hue-rotate-180 cursor-pointer transition-all duration-200"
       />
 
       <!-- Tercer icono -->
       <Image
         src={icon3}
-        alt="Icono 3"
+        alt="X (Twitter)"
         width={20}
         height={20}
-        class="filter brightness-0 invert hover:brightness-100 hover:invert-0 hover:hue-rotate-180 cursor-pointer transition-all duration-200"
+        class="nav-icon filter brightness-0 invert hover:brightness-100 hover:invert-0 hover:hue-rotate-180 cursor-pointer transition-all duration-200"
       />
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navbar = document.getElementById("top-nav");
+    let ticking = false;
+
+    function updateNavbar() {
+      const scrollY = window.scrollY;
+      const scrollThreshold = 100;
+
+      if (!navbar) return;
+
+      if (scrollY > scrollThreshold) {
+        // Cuando se hace scroll hacia abajo
+        if (!navbar.classList.contains("scrolled")) {
+          navbar.classList.add("scrolled");
+          navbar.classList.remove("bg-transparent");
+          navbar.classList.add(
+            "bg-white",
+            "backdrop-blur-md",
+            "shadow-lg",
+            "rounded-lg"
+          );
+
+          // Cambiar colores de texto a oscuro
+          const navTexts = navbar.querySelectorAll(".nav-text");
+          navTexts.forEach((text) => {
+            text.classList.remove("text-white");
+            text.classList.add("text-gray-800");
+          });
+
+          // Cambiar iconos a oscuro
+          const navIcons = navbar.querySelectorAll(".nav-icon");
+          navIcons.forEach((icon) => {
+            icon.classList.remove("brightness-0", "invert");
+            icon.classList.add("brightness-100");
+          });
+        }
+      } else {
+        // Cuando se llega al límite de scroll hacia arriba (cerca del top)
+        if (navbar.classList.contains("scrolled")) {
+          navbar.classList.remove("scrolled");
+          navbar.classList.add("bg-transparent");
+          navbar.classList.remove(
+            "bg-white",
+            "backdrop-blur-md",
+            "shadow-lg",
+            "rounded-lg"
+          );
+
+          // Volver colores de texto a blanco
+          const navTexts = navbar.querySelectorAll(".nav-text");
+          navTexts.forEach((text) => {
+            text.classList.add("text-white");
+            text.classList.remove("text-gray-800");
+          });
+
+          // Volver iconos a blanco
+          const navIcons = navbar.querySelectorAll(".nav-icon");
+          navIcons.forEach((icon) => {
+            icon.classList.add("brightness-0", "invert");
+            icon.classList.remove("brightness-100");
+          });
+        }
+      }
+
+      ticking = false;
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", requestTick);
+    updateNavbar(); // Verificar posición inicial
+  });
+</script>
